@@ -67,6 +67,13 @@ public:
   ///* Sigma point spreading parameter
   double lambda_;
 
+  ///* Output Dim
+  int n_z_radar_;
+  int n_z_laser_;
+
+  //create augmented state covariance
+  MatrixXd P_aug;
+
 
   /**
    * Constructor
