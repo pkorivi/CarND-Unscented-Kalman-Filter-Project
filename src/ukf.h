@@ -73,6 +73,8 @@ public:
 
   //create augmented state covariance
   MatrixXd P_aug;
+  MatrixXd R_laser;
+  MatrixXd R_radar;
 
 
   /**
