@@ -122,6 +122,13 @@ void UKF::ProcessMeasurement(MeasurementPackage meas_package) {
     R_radar <<    std_radr_*std_radr_, 0, 0,
           0, std_radphi_*std_radphi_, 0,
           0, 0,std_radrd_*std_radrd_;
+    
+    // set weights
+    weights_(0) = lambda_/(lambda_+n_aug_);
+    for (int i=1; i<2*n_aug_+1; i++) {  //2n+1 weights
+      weights_(i) = 0.5/(n_aug_+lambda_);
+    }
+    cout << "weights set" << endl;
 
     is_initialized_ = true;
     cout << "Initialize End" << endl;
@@ -237,13 +244,6 @@ void UKF::Prediction(double delta_t) {
   //*******************************
   //Predict Mean and Covariance
   //*******************************
-  
-  // set weights
-  weights_(0) = lambda_/(lambda_+n_aug_);
-  for (int i=1; i<2*n_aug_+1; i++) {  //2n+1 weights
-    weights_(i) = 0.5/(n_aug_+lambda_);
-  }
-  cout << "weights set" << endl;
 
   //predicted state mean
   x_.fill(0.0);
