@@ -28,7 +28,7 @@ UKF::UKF() {
   std_a_ = 1;
 
   // Process noise standard deviation yaw acceleration in rad/s^2
-  std_yawdd_ = 1;
+  std_yawdd_ = 0.5;
   
   //DO NOT MODIFY measurement noise values below these are provided by the sensor manufacturer.
   // Laser measurement noise standard deviation position1 in m
@@ -128,7 +128,7 @@ void UKF::ProcessMeasurement(MeasurementPackage meas_package) {
     return;
   }
   
-  double dt = meas_package.timestamp_ - time_us_;
+  double dt = (meas_package.timestamp_ - time_us_)/1000000.0;;
   time_us_ = meas_package.timestamp_;
   Prediction(dt);
   if (meas_package.sensor_type_ == MeasurementPackage::RADAR && use_radar_) {
